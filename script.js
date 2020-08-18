@@ -1,6 +1,6 @@
 
 // search button clicked 
-document.getElementById("inputForm").addEventListener('submit', () => {
+document.getElementById("inputForm").addEventListener('submit', (submitInput) => {
     formData();
 
     const searchInput = document.getElementById("text-search").value;
@@ -20,6 +20,7 @@ document.getElementById("inputForm").addEventListener('submit', () => {
             console.log(error);
             document.getElementById("search-result").innerText = "No item found !"
         })
+        submitInput.preventDefault();
 });
 
 
