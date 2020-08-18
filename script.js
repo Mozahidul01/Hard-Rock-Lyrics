@@ -1,10 +1,9 @@
-
 // search button clicked 
 document.getElementById("inputForm").addEventListener('submit', (submitInput) => {
     formData();
 
     const searchInput = document.getElementById("text-search").value;
-    
+
     const fetchUrl = `https://api.lyrics.ovh/suggest/${searchInput}`;
 
     fetch(fetchUrl)
@@ -20,14 +19,14 @@ document.getElementById("inputForm").addEventListener('submit', (submitInput) =>
             console.log(error);
             document.getElementById("search-result").innerText = "No item found !"
         })
-        submitInput.preventDefault();
+    submitInput.preventDefault();
 });
 
 
 // display suggestions  
 function displaySuggestion(songData) {
     let data = songData.data;
-    
+
     let list = [];
     for (let i = 0; i < 10; i++) {
         const item = {
@@ -46,11 +45,17 @@ function displaySuggestion(songData) {
     display.innerHTML = "";
     document.querySelector('.single-result').style.display = "block";
     for (let i = 0; i < list.length; i++) {
-        let { title, albumTitle, albumImage, artistName, artistImage } = list[i];
+        let {
+            title,
+            albumTitle,
+            albumImage,
+            artistName,
+            artistImage
+        } = list[i];
 
 
         display.innerHTML +=
-        `<div id="display-result" class="row d-flex result m-3 align-items-center">
+            `<div id="display-result" class="row d-flex result m-3 align-items-center">
             <div class="col-md-6">
                 <h3 class="lyrics-name"><span id="title">${title}</span></h3>
                 <p class="author lead">Artist : <span id="artistName">${artistName}</span></p>
@@ -65,7 +70,7 @@ function displaySuggestion(songData) {
             </div>
         </div>`
     }
-    
+
 }
 
 
@@ -76,7 +81,7 @@ const getLyrics = (title, artistName) => {
 
     fetch(fetchUrl)
         .then(response => response.json())
-        .then(data =>  displayLyrics(data, title, artistName))
+        .then(data => displayLyrics(data, title, artistName))
         .catch(error => console.log(error))
 }
 
@@ -92,11 +97,10 @@ const displayLyrics = (data, title, artistName, albumImage, artistImage) => {
     document.getElementById("song-artist").innerText = " - " + artistName;
     document.getElementById("song-lyrics").innerText = "";
     document.getElementById("search-result").innerText = "";
-    
-    if(data == undefined){
+
+    if (data == undefined) {
         document.getElementById("song-lyrics").innerText = "Sorry! Lyrics is not found.";
-    }
-    else if (data.lyrics) {
+    } else if (data.lyrics) {
         document.getElementById("song-lyrics").innerText = data.lyrics;
     } else {
         document.getElementById("song-lyrics").innerText = "Sorry! Lyrics is not found.";
@@ -117,4 +121,4 @@ const formData = () => {
 document.getElementById("go-back").addEventListener('click', function goBack() {
     document.querySelector('.single-result').style.display = "block";
     document.querySelector('.single-lyrics').style.display = "none";
-  });
+});
